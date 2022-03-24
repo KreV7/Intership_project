@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -68,11 +69,19 @@ WSGI_APPLICATION = 'Intership_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('POSTGRES_NAME'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': 'db',
+        'PORT': 5432
+    },
+    'dev': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'django_db_intership',
         'USER': 'krev',
-        'PASSWORD': '1111',
+        'PASSWORD': "1111",
         'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PORT': 5432
     }
 }
 
