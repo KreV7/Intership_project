@@ -10,6 +10,9 @@ flake8 = "*"
 pytest = "*"
 django-countries = "*"
 psycopg2-binary = "*"
+drf-yasg = "*"
+faker = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 
