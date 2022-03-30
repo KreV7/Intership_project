@@ -1,10 +1,28 @@
 from rest_framework import viewsets, mixins
 from django.contrib.auth.models import User
+from django_filters import rest_framework as filters
 
-from mainapp.models import AdvUser, Car, Showroom, ShowroomsGarage, ShowroomCustomerHistory, \
-    Supplier, SuppliersGarage, SupplierSalesHistory
-from mainapp.serializers import UserSerializers, CarSerializer, SupplierSerializer, SuppliersGarageSerializer, \
-    ShowroomSerializer, ShowroomsGarageSerializer
+from mainapp.filtersets import (
+    CarFilter,
+    SuppliersFilter,
+    ShowroomsFilter
+)
+
+from mainapp.models import (
+    Car,
+    Showroom,
+    ShowroomsGarage,
+    Supplier,
+    SuppliersGarage
+)
+from mainapp.serializers import (
+    UserSerializers,
+    CarSerializer,
+    SupplierSerializer,
+    SuppliersGarageSerializer,
+    ShowroomSerializer,
+    ShowroomsGarageSerializer
+)
 
 
 class UserReadOnlyViewSet(mixins.ListModelMixin,
@@ -24,6 +42,8 @@ class UserReadOnlyViewSet(mixins.ListModelMixin,
 class CarAdminViewSet(viewsets.ModelViewSet):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = CarFilter
 
 
 class CarViewSet(mixins.ListModelMixin,
@@ -35,6 +55,8 @@ class CarViewSet(mixins.ListModelMixin,
 class SuppliersViewSet(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = SuppliersFilter
 
 
 class SuppliersGarageViewSet(viewsets.ModelViewSet):
@@ -45,6 +67,8 @@ class SuppliersGarageViewSet(viewsets.ModelViewSet):
 class ShowroomsViewSet(viewsets.ModelViewSet):
     queryset = Showroom.objects.all()
     serializer_class = ShowroomSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ShowroomsFilter
 
 
 class ShowroomsGarageViewSet(viewsets.ModelViewSet):
