@@ -10,12 +10,16 @@ from .customers import AdvUser
 class Showroom(models.Model):
     title = models.CharField(max_length=256)
     location = CountryField()
-    parameters_car = models.JSONField(default=dict(manufacturer='',
-                                                   car_model='',
-                                                   engine_type='',
-                                                   engine_power='',
-                                                   transmission='',
-                                                   color=''))
+    parameters_car = models.JSONField(
+        default=dict(
+            manufacturer='',
+            car_model='',
+            engine_type='',
+            engine_power='',
+            transmission='',
+            color=''
+        )
+    )
     cash_balance = models.DecimalField(max_digits=25, decimal_places=2, default=Decimal('0.00'))
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
