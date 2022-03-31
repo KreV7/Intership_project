@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-yg5)#0_p)&)!oqg85yqyz1(pm1668pwbh-yyf=vb)r7y+4b)cy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -75,15 +75,15 @@ WSGI_APPLICATION = 'Intership_project.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'prod': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('POSTGRES_NAME'),
+        'NAME': os.environ.get('POSTGRES_DB'),
         'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'db',
-        'PORT': 5432
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': os.environ.get('POSTGRES_PORT')
     },
-    'default': {
+    'dev': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'django_db_intership',
         'USER': 'krev',
