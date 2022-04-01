@@ -13,6 +13,8 @@ psycopg2-binary = "*"
 drf-yasg = "*"
 faker = "*"
 django-debug-toolbar = "*"
+djangorestframework-simplejwt = "*"
+django-filter = "*"
 
 [dev-packages]
 
