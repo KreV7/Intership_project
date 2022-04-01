@@ -1,4 +1,4 @@
-from core.base_enum import BaseEnum
+from core.enums.base_enum import BaseEnum
 
 
 class TransmissionTypes(BaseEnum):

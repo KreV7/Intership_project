@@ -13,7 +13,7 @@ class AdvUserSerializer(serializers.ModelSerializer):
         )
 
 
-class UserSerializers(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     advuser = AdvUserSerializer()
 
     class Meta:

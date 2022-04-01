@@ -1,5 +1,5 @@
 from .car import CarSerializer
-from .customers import UserSerializers, AdvUserSerializer
+from .customers import UserSerializer, AdvUserSerializer
 from .suppliers import (
     SupplierSerializer,
     SuppliersGarageSerializer,

@@ -16,7 +16,7 @@ from mainapp.models import (
     SuppliersGarage
 )
 from mainapp.serializers import (
-    UserSerializers,
+    UserSerializer,
     CarSerializer,
     SupplierSerializer,
     SuppliersGarageSerializer,
@@ -29,7 +29,7 @@ class UserReadOnlyViewSet(mixins.ListModelMixin,
                           mixins.RetrieveModelMixin,
                           viewsets.GenericViewSet):
     queryset = User.objects.select_related('advuser').all()
-    serializer_class = UserSerializers
+    serializer_class = UserSerializer
 
     def get_queryset(self):
         user = self.request.user
