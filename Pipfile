@@ -15,6 +15,9 @@ faker = "*"
 django-debug-toolbar = "*"
 djangorestframework-simplejwt = "*"
 django-filter = "*"
+celery = "*"
+redis = "*"
+flower = "*"
 
 [dev-packages]
 

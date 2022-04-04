@@ -1,4 +1,7 @@
 from .enums import (
     TransmissionTypes,
-    EngineTypes
+    EngineTypes,
+    Colors,
+    CARS,
+    ENGINE_POWER
 )
