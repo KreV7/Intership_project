@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.db import models
 from django_countries.fields import CountryField
 
+from core import BaseSalesModel
 from .suppliers import Supplier, SuppliersGarage
 from .customers import AdvUser
 
@@ -70,3 +71,19 @@ class SupplierSalesHistory(models.Model):
 
     def __str__(self):
         return f'{self.supplier}: {self.showroom} -> {self.car}'
+
+
+class ShowroomsSales(BaseSalesModel):
+    showroom = models.ForeignKey(Showroom, on_delete=models.CASCADE)
+    car = models.ForeignKey(ShowroomsGarage, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.showroom}: Discount {self.discount} on {self.car}'
+
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+        if self.car in self.showroom.showroomsgarage_set.all():
+            super(ShowroomsSales, self).save()
+        else:
+            raise Exception(f"Choose a car from the {self.showroom} garage")

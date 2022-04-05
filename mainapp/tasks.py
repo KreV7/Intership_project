@@ -53,5 +53,10 @@ def buy_car_customer_supplier():
             total_cost=showroom_car.selling_price * 1
         )
         customer.cash_balance -= showroom_car.selling_price * 1
+        showroom_car.cash_balance += showroom_car.selling_price * 1
+        if showroom_car.quantity == 1:
+            showroom_car.delete()
+        else:
+            showroom_car.quantity -= 1
     else:
         customer.cash_balance += random.randint(5000, 25000)
