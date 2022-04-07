@@ -12,12 +12,12 @@ app.autodiscover_tasks()
 # celery beat tasks
 
 app.conf.beat_schedule = {
-    'buy_car_showroom_supplier_every_2_minute': {
+    'buy_car_showroom_supplier_every_10_minute': {
         'task': 'mainapp.tasks.buy_car_showroom_supplier',
-        'schedule': crontab(minute='*/2')
+        'schedule': crontab(minute='*/10')
     },
-    'buy_car_customer_supplier_every_3_minutes': {
+    'buy_car_customer_supplier_every_12_minutes': {
         'task': 'mainapp.tasks.buy_car_customer_supplier',
-        'schedule': crontab(minute='*/3')
+        'schedule': crontab(minute='*/12')
     }
 }

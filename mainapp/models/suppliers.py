@@ -27,8 +27,8 @@ class SuppliersGarage(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f'{self.car} ({self.supplier}): {self.price}$'
+    # def __str__(self):
+    #     return f'{self.car} ({self.supplier}): {self.price}$'
 
 
 class SuppliersSales(BaseSalesModel):

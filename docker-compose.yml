@@ -33,7 +33,7 @@ services:
 
   celery:
     build: .
-    command: bash -c "celery -A Intership_project worker -l info"
+    command: bash -c "celery -A Intership_project worker --loglevel=info --logfile=celery.log"
     env_file:
       - .env
     volumes:

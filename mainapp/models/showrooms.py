@@ -41,8 +41,8 @@ class ShowroomsGarage(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updates = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return f'{self.car} ({self.showroom})'
+    # def __str__(self):
+    #     return f'{self.car} ({self.showroom})'
 
 
 class ShowroomCustomerHistory(models.Model):
