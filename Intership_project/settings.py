@@ -24,14 +24,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'django_countries',
-    'drf_yasg',
+
     'mainapp.apps.MainappConfig',
-    'faker',
-    'debug_toolbar',
+
     'rest_framework_simplejwt',
+    'django_countries',
+    'rest_framework',
     'django_filters',
+    'debug_toolbar',
+    'djoser',
+    'drf_yasg',
+    'faker',
 ]
 
 MIDDLEWARE = [
@@ -80,14 +83,6 @@ DATABASES = {
         'HOST': os.environ.get('POSTGRES_HOST'),
         'PORT': os.environ.get('POSTGRES_PORT')
     },
-    'dev': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_db_intership',
-        'USER': 'krev',
-        'PASSWORD': "1111",
-        'HOST': '127.0.0.1',
-        'PORT': 5432
-    }
 }
 
 # Password validation
@@ -141,6 +136,22 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
+}
+
+# gmail_send settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = '7kruchkovei7@gmail.com'
+EMAIL_HOST_PASSWORD = 'Kr5315290eV'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# djoser settings
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {},
 }
 
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://redis:6379/0")
