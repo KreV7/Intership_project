@@ -138,10 +138,20 @@ REST_FRAMEWORK = {
     )
 }
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'JWTToken': {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "token"
+        }
+    },
+}
+
 # gmail_send settings
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = '7kruchkovei7@gmail.com'
-EMAIL_HOST_PASSWORD = 'Kr5315290eV'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER'),
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD'),
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
