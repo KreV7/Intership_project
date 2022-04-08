@@ -1,8 +1,14 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from mainapp.views import UserReadOnlyViewSet, CarAdminViewSet, SuppliersViewSet, SuppliersGarageViewSet, ShowroomsViewSet, \
-    ShowroomsGarageViewSet
+from mainapp.views import (
+    UserReadOnlyViewSet,
+    CarAdminViewSet,
+    SuppliersViewSet,
+    SuppliersGarageViewSet,
+    ShowroomsViewSet,
+    ShowroomsGarageViewSet,
+)
 
 router = DefaultRouter()
 router.register('users', UserReadOnlyViewSet, basename='UserReadOnlyViewSet')

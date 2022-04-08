@@ -1,4 +1,4 @@
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, mixins, permissions
 from django.contrib.auth.models import User
 from django_filters import rest_framework as filters
 
@@ -16,7 +16,7 @@ from mainapp.models import (
     SuppliersGarage
 )
 from mainapp.serializers import (
-    UserSerializer,
+    MyUserSerializer,
     CarSerializer,
     SupplierSerializer,
     SuppliersGarageSerializer,
@@ -29,7 +29,8 @@ class UserReadOnlyViewSet(mixins.ListModelMixin,
                           mixins.RetrieveModelMixin,
                           viewsets.GenericViewSet):
     queryset = User.objects.select_related('advuser').all()
-    serializer_class = UserSerializer
+    serializer_class = MyUserSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         user = self.request.user
