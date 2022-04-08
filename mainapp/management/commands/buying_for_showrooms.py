@@ -15,12 +15,12 @@ class Command(BaseCommand):
     help = 'Clearing Showrooms garage and next buying cars for showrooms'
 
     def handle(self, *args, **options):
-        """Clearing showrooms garages"""
+        # Clearing showrooms garages
 
         ShowroomsGarage.objects.all().delete()
         SupplierSalesHistory.objects.all().delete()
 
-        """Buying cars for showrooms"""
+        # Buying cars for showrooms
 
         showrooms = Showroom.objects.all()
 

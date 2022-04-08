@@ -26,7 +26,7 @@ class Command(BaseCommand):
     help = 'Filling database random datas'
 
     def handle(self, *args, **options):
-        """Clearing database"""
+        # Clearing database
         User.objects.filter(is_superuser=False).delete()
         AdvUser.objects.all().delete()
         Car.objects.all().delete()
@@ -35,7 +35,7 @@ class Command(BaseCommand):
 
         fake = Faker()
 
-        """Filling random users"""
+        # Filling random users
         users_count = 25
 
         for _ in range(users_count):
@@ -46,8 +46,7 @@ class Command(BaseCommand):
                                          last_name=fake.last_name())
             AdvUser.objects.create(user=u, phone=fake.phone_number(), cash_balance=random.randint(35000, 100000))
 
-        """Filling random cars"""
-        car_count = 250
+        # Filling random cars
 
         for car_man in CARS.keys():
             for car_model in CARS[car_man]:
@@ -60,18 +59,7 @@ class Command(BaseCommand):
                                        color=random.choice(Colors.choices())[0],
                                        description=fake.text())
 
-        # for _ in range(car_count):
-        #     rand_car = random.choice(list(CARS.keys()))
-        #     rand_model = random.choice(CARS[rand_car])
-        #     Car.objects.create(manufacturer=rand_car,
-        #                        car_model=rand_model,
-        #                        engine_type=random.choice(EngineTypes.choices())[0],
-        #                        engine_power=random.choice(ENGINE_POWER),
-        #                        transmission=random.choice(TransmissionTypes.choices())[0],
-        #                        color=random.choice(Colors.choices())[0],
-        #                        description=fake.text())
-
-        """Filling random Suppliers"""
+        # Filling random Suppliers
 
         suppliers_count = 15
 
@@ -81,7 +69,7 @@ class Command(BaseCommand):
                                     number_of_cars=random.randint(10, 25),
                                     discount=random.randint(10, 30))
 
-        """Filling suppliers garage"""
+        # Filling suppliers garage
 
         cars = Car.objects.all()
 
@@ -95,7 +83,7 @@ class Command(BaseCommand):
                     price=Decimal(round(random.uniform(car_price * 0.8, car_price * 1.2), 2)).quantize(Decimal('1.00')),
                 )
 
-        """Filling random showrooms"""
+        # Filling random showrooms
 
         showrooms_count = 25
 

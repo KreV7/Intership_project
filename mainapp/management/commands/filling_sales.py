@@ -17,12 +17,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        """Clearing database for sales"""
+        # Clearing database for sales
 
         SuppliersSales.objects.all().delete()
         ShowroomsSales.objects.all().delete()
 
-        """Filling suppliers discounts"""
+        # Filling suppliers discounts
 
         suppliers = Supplier.objects.all()
 
@@ -38,7 +38,7 @@ class Command(BaseCommand):
                     car=car
                 )
 
-        """Filling suppliers discounts"""
+        # Filling suppliers discounts
 
         showrooms = Showroom.objects.all()
 
