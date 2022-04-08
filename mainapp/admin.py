@@ -6,9 +6,11 @@ from mainapp.models import (
     Showroom,
     ShowroomsGarage,
     ShowroomCustomerHistory,
+    ShowroomsSales,
     Supplier,
     SuppliersGarage,
-    SupplierSalesHistory
+    SupplierSalesHistory,
+    SuppliersSales,
 )
 
 
@@ -94,6 +96,25 @@ class SupplierSalesHistoryAdmin(admin.ModelAdmin):
     )
 
 
+@admin.register(SuppliersSales)
+class SuppliersSalesAdmin(admin.ModelAdmin):
+    readonly_fields = ('created', 'updated')
+    list_display = (
+        'supplier',
+        'car',
+        'discount',
+        'start_date',
+        'end_date',
+        'created',
+        'updated',
+    )
+    list_filter = (
+        'supplier',
+        'car__car__manufacturer',
+        'discount',
+    )
+
+
 @admin.register(Showroom)
 class ShowroomAdmin(admin.ModelAdmin):
     list_display = (
@@ -145,4 +166,23 @@ class ShowroomCustomerHistoryAdmin(admin.ModelAdmin):
         'car__car__car__manufacturer',
         'showroom',
         'is_active'
+    )
+
+
+@admin.register(ShowroomsSales)
+class ShowroomsSalesAdmin(admin.ModelAdmin):
+    readonly_fields = ('created', 'updated')
+    list_display = (
+        'showroom',
+        'car',
+        'discount',
+        'start_date',
+        'end_date',
+        'created',
+        'updated',
+    )
+    list_filter = (
+        'showroom',
+        'car__car__car__manufacturer',
+        'discount',
     )

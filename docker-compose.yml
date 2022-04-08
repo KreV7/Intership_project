@@ -10,6 +10,9 @@ services:
     ports:
       - 54321:5432
 
+  redis:
+    image: redis:6.2.6
+
   web:
     build:
       context: .
@@ -26,3 +29,40 @@ services:
       - .:/Intership_project
     depends_on:
       - db
+      - redis
+
+  celery:
+    build: .
+    command: bash -c "celery -A Intership_project worker --loglevel=info --logfile=celery.log"
+    env_file:
+      - .env
+    volumes:
+      - .:/Intership_project
+    depends_on:
+      - web
+      - redis
+
+  celery_beat:
+    build: .
+    command: bash -c "celery -A Intership_project beat -l info"
+    env_file:
+      - .env
+    volumes:
+      - .:/Intership_project
+    depends_on:
+      - web
+      - redis
+
+  dashboard:
+    build: .
+    command: bash -c "celery -A Intership_project flower --port=5555"
+    ports:
+      - 5555:5555
+    env_file:
+      - .env
+    volumes:
+      - .:/Intership_project
+    depends_on:
+      - web
+      - redis
+      - celery
