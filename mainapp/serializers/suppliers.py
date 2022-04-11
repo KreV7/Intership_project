@@ -38,3 +38,14 @@ class SupplierGarageShowroomsGarageSerializer(serializers.ModelSerializer):
             'car',
             'price'
         )
+
+
+class SupplierStatisticSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supplier
+        fields = (
+            'id',
+            'title',
+            'sold_cars',
+            'received_money'
+        )

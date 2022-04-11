@@ -2,6 +2,8 @@ from decimal import Decimal
 
 from django.core import validators
 from django.db import models
+from django.db.models import Sum
+
 from core import BaseSalesModel
 from .car import Car
 
@@ -17,6 +19,14 @@ class Supplier(models.Model):
 
     def __str__(self):
         return f'{self.title} ({self.year_foundation.year})'
+
+    @property
+    def sold_cars(self):
+        return self.suppliersaleshistory_set.aggregate(num_cars=Sum('quantity'))['num_cars']
+
+    @property
+    def received_money(self):
+        return self.suppliersaleshistory_set.aggregate(received=Sum('total_price'))['received']
 
 
 class SuppliersGarage(models.Model):
@@ -39,7 +49,7 @@ class SuppliersSales(BaseSalesModel):
         return f'{self.supplier.title}: Discount {self.discount}% on {self.car}'
 
     def save(
-        self, force_insert=False, force_update=False, using=None, update_fields=None
+            self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
         if self.car in self.supplier.suppliersgarage_set.all():
             super(SuppliersSales, self).save()

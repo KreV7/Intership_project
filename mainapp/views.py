@@ -9,19 +9,23 @@ from mainapp.filtersets import (
 )
 
 from mainapp.models import (
+    AdvUser,
     Car,
     Showroom,
     ShowroomsGarage,
     Supplier,
-    SuppliersGarage
+    SuppliersGarage,
 )
 from mainapp.serializers import (
     MyUserSerializer,
+    UsersStatisticSerializer,
     CarSerializer,
     SupplierSerializer,
     SuppliersGarageSerializer,
+    SupplierStatisticSerializer,
     ShowroomSerializer,
-    ShowroomsGarageSerializer
+    ShowroomsGarageSerializer,
+    ShowroomsStatisticSerializer,
 )
 
 
@@ -38,6 +42,13 @@ class UserReadOnlyViewSet(mixins.ListModelMixin,
             return self.queryset.all()
         else:
             return self.queryset.filter(id=user.id)
+
+
+class UsersStatisticViewSet(mixins.ListModelMixin,
+                            mixins.RetrieveModelMixin,
+                            viewsets.GenericViewSet):
+    queryset = AdvUser.objects.select_related('user').all()
+    serializer_class = UsersStatisticSerializer
 
 
 class CarAdminViewSet(viewsets.ModelViewSet):
@@ -65,6 +76,13 @@ class SuppliersGarageViewSet(viewsets.ModelViewSet):
     serializer_class = SuppliersGarageSerializer
 
 
+class SuppliersStatisticViewSet(mixins.ListModelMixin,
+                                mixins.RetrieveModelMixin,
+                                viewsets.GenericViewSet):
+    queryset = Supplier.objects.all()
+    serializer_class = SupplierStatisticSerializer
+
+
 class ShowroomsViewSet(viewsets.ModelViewSet):
     queryset = Showroom.objects.all()
     serializer_class = ShowroomSerializer
@@ -75,3 +93,10 @@ class ShowroomsViewSet(viewsets.ModelViewSet):
 class ShowroomsGarageViewSet(viewsets.ModelViewSet):
     queryset = ShowroomsGarage.objects.select_related('car').select_related('supplier').select_related('showroom').all()
     serializer_class = ShowroomsGarageSerializer
+
+
+class ShowroomsStatisticViewSet(mixins.ListModelMixin,
+                                mixins.RetrieveModelMixin,
+                                viewsets.GenericViewSet):
+    queryset = Showroom.objects.all()
+    serializer_class = ShowroomsStatisticSerializer

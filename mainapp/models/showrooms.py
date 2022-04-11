@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.db import models
+from django.db.models import Sum
 from django_countries.fields import CountryField
 
 from core import BaseSalesModel
@@ -28,6 +29,30 @@ class Showroom(models.Model):
 
     def __str__(self):
         return f'{self.title} ({self.location})'
+
+    @property
+    def bought_cars(self):
+        return self.suppliersaleshistory_set.aggregate(num_cars=Sum('quantity'))['num_cars']
+
+    @property
+    def bought_cars_by_supplier(self):
+        return self.suppliersaleshistory_set.values('supplier').annotate(num_cars=Sum('quantity'))
+
+    @property
+    def spent_money(self):
+        return self.suppliersaleshistory_set.aggregate(spent=Sum('total_price'))['spent']
+
+    @property
+    def sold_cars(self):
+        return self.showroomcustomerhistory_set.aggregate(num_cars=Sum('quantity'))['num_cars']
+
+    @property
+    def received_money(self):
+        return self.showroomcustomerhistory_set.aggregate(received=Sum('total_cost'))['received']
+
+    @property
+    def unique_customer(self):
+        return len(self.showroomcustomerhistory_set.values('customer'))
 
 
 class ShowroomsGarage(models.Model):
@@ -81,7 +106,7 @@ class ShowroomsSales(BaseSalesModel):
         return f'{self.showroom}: Discount {self.discount} on {self.car}'
 
     def save(
-        self, force_insert=False, force_update=False, using=None, update_fields=None
+            self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
         if self.car in self.showroom.showroomsgarage_set.all():
             super(ShowroomsSales, self).save()

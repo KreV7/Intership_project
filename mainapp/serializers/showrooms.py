@@ -31,5 +31,20 @@ class ShowroomsGarageSerializer(serializers.ModelSerializer):
             'showroom',
             'purchase_price',
             'quantity',
-            'selling_price'
+            'selling_price',
+        )
+
+
+class ShowroomsStatisticSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Showroom
+        fields = (
+            'id',
+            'title',
+            'bought_cars',
+            'spent_money',
+            'sold_cars',
+            'received_money',
+            'unique_customer',
+            'bought_cars_by_supplier',
         )
