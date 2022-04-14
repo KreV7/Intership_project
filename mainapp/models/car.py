@@ -14,8 +14,8 @@ class Car(models.Model):
     engine_power = models.PositiveIntegerField(blank=True, null=True)
     transmission = models.CharField(max_length=64, choices=TransmissionTypes.choices(),
                                     default=TransmissionTypes.M.value)
-    color = models.CharField(max_length=64, choices=Colors.choices())
-    description = models.TextField(blank=True)
+    color = models.CharField(max_length=64, choices=Colors.choices(), default=Colors.BLACK)
+    description = models.TextField(blank=True, default='')
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
