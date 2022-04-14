@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from mainapp.models import Supplier, SuppliersGarage
+from mainapp.models import Supplier, SuppliersGarage, SuppliersSales
 from mainapp.serializers import CarSerializer
 
 
@@ -10,13 +10,15 @@ class SupplierSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'title',
-            'year_foundation'
+            'year_foundation',
+            'number_of_cars',
+            'discount',
         )
 
 
 class SuppliersGarageSerializer(serializers.ModelSerializer):
-    car = CarSerializer()
-    supplier = SupplierSerializer()
+    # car = CarSerializer()
+    # supplier = SupplierSerializer()
 
     class Meta:
         model = SuppliersGarage
@@ -48,4 +50,17 @@ class SupplierStatisticSerializer(serializers.ModelSerializer):
             'title',
             'sold_cars',
             'received_money'
+        )
+
+
+class SuppliersSalesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SuppliersSales
+        fields = (
+            'id',
+            'supplier',
+            'car',
+            'discount',
+            'start_date',
+            'end_date',
         )

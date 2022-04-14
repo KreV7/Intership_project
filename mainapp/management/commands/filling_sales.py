@@ -27,18 +27,19 @@ class Command(BaseCommand):
         suppliers = Supplier.objects.all()
 
         for supplier in suppliers:
-            supplier_cars = random.sample(
-                list(SuppliersGarage.objects.filter(supplier=supplier)),
-                random.randint(1, len(SuppliersGarage.objects.filter(supplier=supplier)))
-            )
-            for car in supplier_cars:
-                SuppliersSales.objects.create(
-                    discount=random.randint(10, 40),
-                    supplier=supplier,
-                    car=car
+            if len(SuppliersGarage.objects.filter(supplier=supplier)):
+                supplier_cars = random.sample(
+                    list(SuppliersGarage.objects.filter(supplier=supplier)),
+                    random.randint(1, len(SuppliersGarage.objects.filter(supplier=supplier)))
                 )
+                for car in supplier_cars:
+                    SuppliersSales.objects.create(
+                        discount=random.randint(10, 40),
+                        supplier=supplier,
+                        car=car
+                    )
 
-        # Filling suppliers discounts
+        # Filling showrooms discounts
 
         showrooms = Showroom.objects.all()
 

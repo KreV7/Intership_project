@@ -19,6 +19,8 @@ celery = "*"
 redis = "*"
 flower = "*"
 djoser = "*"
+pytest-django = "*"
+pytest-cov = "*"
 
 [dev-packages]
 

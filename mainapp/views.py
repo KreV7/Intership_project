@@ -1,6 +1,8 @@
 from rest_framework import viewsets, mixins, permissions
 from django.contrib.auth.models import User
 from django_filters import rest_framework as filters
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from mainapp.filtersets import (
     CarFilter,
@@ -13,8 +15,10 @@ from mainapp.models import (
     Car,
     Showroom,
     ShowroomsGarage,
+    ShowroomsSales,
     Supplier,
     SuppliersGarage,
+    SuppliersSales,
 )
 from mainapp.serializers import (
     MyUserSerializer,
@@ -23,9 +27,11 @@ from mainapp.serializers import (
     SupplierSerializer,
     SuppliersGarageSerializer,
     SupplierStatisticSerializer,
+    SuppliersSalesSerializer,
     ShowroomSerializer,
     ShowroomsGarageSerializer,
     ShowroomsStatisticSerializer,
+    ShowroomsSalesSerializer,
 )
 
 
@@ -72,7 +78,7 @@ class SuppliersViewSet(viewsets.ModelViewSet):
 
 
 class SuppliersGarageViewSet(viewsets.ModelViewSet):
-    queryset = SuppliersGarage.objects.select_related('car').select_related('supplier').all()
+    queryset = SuppliersGarage.objects.all()
     serializer_class = SuppliersGarageSerializer
 
 
@@ -83,11 +89,22 @@ class SuppliersStatisticViewSet(mixins.ListModelMixin,
     serializer_class = SupplierStatisticSerializer
 
 
+class SuppliersSalesViewSet(viewsets.ModelViewSet):
+    queryset = SuppliersSales.objects.all()
+    serializer_class = SuppliersSalesSerializer
+
+
 class ShowroomsViewSet(viewsets.ModelViewSet):
     queryset = Showroom.objects.all()
     serializer_class = ShowroomSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ShowroomsFilter
+
+    @action(detail=True, methods=['get'], url_path='garage')
+    def showroom_garage(self, request, *args, **kwargs):
+        garage = Showroom.objects.get(id=kwargs.get('pk')).showroomsgarage_set.all()
+        garage = ShowroomsGarageSerializer(garage, many=True)
+        return Response(garage.data)
 
 
 class ShowroomsGarageViewSet(viewsets.ModelViewSet):
@@ -100,3 +117,8 @@ class ShowroomsStatisticViewSet(mixins.ListModelMixin,
                                 viewsets.GenericViewSet):
     queryset = Showroom.objects.all()
     serializer_class = ShowroomsStatisticSerializer
+
+
+class ShowroomsSalesViewSet(viewsets.ModelViewSet):
+    queryset = ShowroomsSales.objects.all()
+    serializer_class = ShowroomsSalesSerializer

@@ -1,0 +1,18 @@
+[run]
+source = .
+omit =
+    *venv/*
+    *venv/bin/*
+    *venv/include/*
+    *venv/lib/*
+    *tests/*
+    *tests/api/*
+    *templates/*
+    *manage.py
+    */settings.py
+    */migrations/*
+    *asgi.py
+    *wsgi.py
+    *__init__*
+    */__pycache__/*
+    */site-packages/*

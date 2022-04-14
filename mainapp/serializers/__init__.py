@@ -9,9 +9,11 @@ from .suppliers import (
     SuppliersGarageSerializer,
     SupplierGarageShowroomsGarageSerializer,
     SupplierStatisticSerializer,
+    SuppliersSalesSerializer,
 )
 from .showrooms import (
     ShowroomSerializer,
     ShowroomsGarageSerializer,
     ShowroomsStatisticSerializer,
+    ShowroomsSalesSerializer,
 )

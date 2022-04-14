@@ -1,7 +1,7 @@
 from django_countries.serializers import CountryFieldMixin
 from rest_framework import serializers
 
-from mainapp.models import Showroom, ShowroomsGarage
+from mainapp.models import Showroom, ShowroomsGarage, ShowroomsSales
 from mainapp.serializers import SupplierGarageShowroomsGarageSerializer, SupplierSerializer
 
 
@@ -47,4 +47,17 @@ class ShowroomsStatisticSerializer(serializers.ModelSerializer):
             'received_money',
             'unique_customer',
             'bought_cars_by_supplier',
+        )
+
+
+class ShowroomsSalesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShowroomsSales
+        fields = (
+            'id',
+            'showroom',
+            'car',
+            'discount',
+            'start_date',
+            'end_date',
         )
